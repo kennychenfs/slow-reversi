@@ -1,16 +1,18 @@
+from __future__ import print_function
 class board:
 	step=[[1,1],[1,0],[1,-1],[0,1],[0,-1],[-1,1],[-1,0],[-1,-1]]
 	def __init__(self):
 		self.grid=[[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,2,1,0,0,0],[0,0,0,1,2,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0]]
+		self.passes=0
 	def dump(self):
 		for i in self.grid:
 			for j in i:
 				if j==0:
-					print(" +", end="")
+					print("+ ", end="")
 				elif j==1:
-					print(" O", end="")
+					print("O ", end="")
 				elif j==2:
-					print(" X", end="")
+					print("X ", end="")
 			print()
 	def ok(self,x,y,color):
 		if self.grid[x][y]!=0:
@@ -42,3 +44,12 @@ class board:
 			while tx<8 and ty<8 and tx>=0 and ty>=0 and self.grid[tx][ty]==(not(color-1))+1:
 				self.grid[tx][ty]=color
 				tx-=i[0];ty-=i[1]
+	def count(self):
+		b=0;w=0
+		for i in self.grid:
+			for j in i:
+				if j==1:
+					b+=1
+				elif j==2:
+					w+=1
+		return b-w
